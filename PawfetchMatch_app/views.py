@@ -109,15 +109,14 @@ def create_listing(request):
 def update_listing(request):
     print('UPDATE LISTING: ', request.data)
     user = request.user
-    pk = user.id
 
     try:
-        user_instance = User.objects.get(pk=pk)
+        user_instance = User.objects.get(id=user.id)
     except User.DoesNotExist:
         return Response({"error": "Listing not found"}, status=404)
 
     # Update the listing attributes based on the request data, while preserving existing values if not provided in the request
-    listing = Listing.objects.get(user=user_instance, pk=4)
+    listing = Listing.objects.filter(user=user_instance).first()
     listing.title = request.data.get('title', listing.title)
     listing.description = request.data.get('description', listing.description)
     listing.price = request.data.get('price', listing.price)
@@ -134,9 +133,9 @@ def update_listing(request):
 def delete_listing(request):
     print('DELETE LISTING: ', request.data)
     user = request.user
-    pk = user.id
+
     try:
-        listing = Listing.objects.get(pk=4)
+        listing = Listing.objects.filter(user=user.id)
     except Listing.DoesNotExist:
         return Response({"error": "Listing not found"}, status=404)
 
@@ -145,11 +144,11 @@ def delete_listing(request):
 
 # Get Listing View
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def get_listing(request):
     print("GETTING LISTINGS: ", request.data)
-    user = request.user
-    listings = Listing.objects.filter(user=user)
+    # user = request.user
+    listings = Listing.objects.all()
     serializer = ListingSerializer(listings, many=True)
     return Response(serializer.data)
 
@@ -183,7 +182,7 @@ def update_message(request):
     user = request.user
 
     try:
-        messages = Message.objects.filter(sender_id=user)
+        messages = Message.objects.filter(sender_id=user.id)
     except User.DoesNotExist:
         return Response({"error": "Listing not found"}, status=404)
 
