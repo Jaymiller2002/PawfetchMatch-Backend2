@@ -220,3 +220,16 @@ def get_message(request):
     messages = Message.objects.filter(receiver=request.user)
     serializer = MessageSerializer(messages, many=True)
     return Response(serializer.data)
+
+
+#
+##
+#
+
+# Logout View
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def logout(request):
+    # Delete the token associated with the user
+    Token.objects.filter(user=request.user).delete()
+    return Response({"message": "Logged out successfully"})

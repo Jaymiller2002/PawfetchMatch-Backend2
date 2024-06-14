@@ -36,6 +36,7 @@ urlpatterns = [
     path('update-message/', update_message, name='update-message'),
     path('delete-message/', delete_message, name='delete-message'),
     path('get-message/', get_message, name='get-message'),
+    path('logout/', logout, name='logout'),
     path('token/', TokenObtainPairView.as_view()),
 ]
 
