@@ -216,8 +216,13 @@ def delete_message(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_message(request):
-    # Retrieve messages for the authenticated user
-    messages = Message.objects.filter(receiver=request.user)
+    # Retrieve both sent and received messages for the authenticated user
+    received_messages = Message.objects.filter(receiver=request.user)
+    sent_messages = Message.objects.filter(sender=request.user)
+    
+    # Combine both querysets
+    messages = list(received_messages) + list(sent_messages)
+
     serializer = MessageSerializer(messages, many=True)
     return Response(serializer.data)
 
@@ -231,5 +236,4 @@ def get_message(request):
 @permission_classes([IsAuthenticated])
 def logout(request):
     # Delete the token associated with the user
-    Token.objects.filter(user=request.user).delete()
     return Response({"message": "Logged out successfully"})
