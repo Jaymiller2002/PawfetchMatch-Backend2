@@ -10,6 +10,7 @@ class ListingAdmin(admin.ModelAdmin):
 class MessageAdmin(admin.ModelAdmin):
     pass
 
+
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Listing, ListingAdmin)
 admin.site.register(Profile, ProfileAdmin)

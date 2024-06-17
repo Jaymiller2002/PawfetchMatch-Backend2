@@ -25,6 +25,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile/', get_profile, name='get-profile'),
+    path('profiles/', get_all_profiles, name='get-all-profiles'),
     path('create-user/', create_user, name='create-user'),
     path('update-user/', update_user, name='update_user'),
     path('delete-user/', delete_user, name='delete_user'),

@@ -14,6 +14,17 @@ def get_profile(request):
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
 
+
+# Get All Profile's of Every User
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_all_profiles(request):
+    print('Getting all profiles: ', request.data)
+    profiles = Profile.objects.all()
+    serializer = ProfileSerializer(profiles, many=True)
+    return Response(serializer.data)
+
+
 # Create New User View
 @api_view(['POST'])
 @permission_classes([])
