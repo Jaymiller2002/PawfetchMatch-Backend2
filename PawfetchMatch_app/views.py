@@ -191,7 +191,7 @@ def create_message(request):
 @permission_classes([IsAuthenticated])
 def update_message(request):
     user = request.user
-
+    
     try:
         messages = Message.objects.filter(sender_id=user.id)
     except User.DoesNotExist:
@@ -216,7 +216,7 @@ def delete_message(request):
     user = request.user
 
     try:
-        message = Message.objects.filter(sender_id=user)
+        message = Message.objects.filter(sender_id=user.id)
     except Message.DoesNotExist:
         return Response({"error": "Listing not found"}, status=404)
 
