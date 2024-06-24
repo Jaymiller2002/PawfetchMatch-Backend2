@@ -72,7 +72,10 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
 'http://localhost:8080',
-'https://pawfetch-match-frontend1.vercel.app'
+'https://doglist.vercel.app',
+'https://pawfetch-match-frontend1.vercel.app',
+'https://pawfetch-match-frontend1-git-main-jaymiller2002s-projects.vercel.app',
+'https://pawfetch-match-frontend1-2p3rlfog1-jaymiller2002s-projects.vercel.app'
 ]
 
 CORS_ALLOW_METHODS = [
