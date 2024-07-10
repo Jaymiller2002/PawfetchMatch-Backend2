@@ -141,12 +141,12 @@ def update_listing(request):
 # Delete Listing View
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
-def delete_listing(request):
+def delete_listing(request, id):
     print('DELETE LISTING: ', request.data)
     user = request.user
 
     try:
-        listing = Listing.objects.filter(user=user.id)
+        listing = Listing.objects.filter(id=id, user=user.id)
     except Listing.DoesNotExist:
         return Response({"error": "Listing not found"}, status=404)
 
@@ -189,11 +189,11 @@ def create_message(request):
 # Update Message View- SORTA WORKS BUT CHANGES ALL MESSAGES
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def update_message(request):
+def update_message(request, id):
     user = request.user
     
     try:
-        messages = Message.objects.filter(sender_id=user.id)
+        messages = Message.objects.filter(id=id, sender_id=user.id)
     except User.DoesNotExist:
         return Response({"error": "Listing not found"}, status=404)
 
@@ -211,12 +211,12 @@ def update_message(request):
 # Delete Message View
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
-def delete_message(request):
+def delete_message(request, id):
     print('DELETE MESSAGE: ', request.data)
     user = request.user
 
     try:
-        message = Message.objects.filter(sender_id=user.id)
+        message = Message.objects.filter(id=id, sender_id=user.id)
     except Message.DoesNotExist:
         return Response({"error": "Listing not found"}, status=404)
 
